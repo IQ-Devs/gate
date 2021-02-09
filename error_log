@@ -1,0 +1,2 @@
+[02-Nov-2020 12:03:06 UTC] PHP Warning:  require(/home/qyxtmg7id071/public_html/vendor/composer/../symfony/polyfill-php80/bootstrap.php): failed to open stream: No such file or directory in /home/qyxtmg7id071/public_html/vendor/composer/autoload_real.php on line 69
+[02-Nov-2020 12:03:06 UTC] PHP Fatal error:  require(): Failed opening required '/home/qyxtmg7id071/public_html/vendor/composer/../symfony/polyfill-php80/bootstrap.php' (include_path='.:/opt/alt/php73/usr/share/pear') in /home/qyxtmg7id071/public_html/vendor/composer/autoload_real.php on line 69
