@@ -17,3 +17,24 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+//we will use this route to upload all sms with any provider we have (phone, simbank , gatebank)
+Route::post('/UploadSms', 'SmsServerController@upload');
+Route::post('/in', function (Request $jsonObject) {
+    $body = json_decode(str_replace('``','"', $jsonObject->message));
+//    $from=str_replace('+','',$body->from);
+    $message=$body->message;
+
+    $regex="/code: ([0-9]*)/";
+    preg_match($regex,$message,$code);
+
+
+    print_r($code[1]);
+//    dd(file_get_contents("php://input"));
+
+});
+//$jsonObject = json_decode(implode('', file("php://input")));
+//$body = json_decode(str_replace('``','"', $jsonObject->message));
+//$from=str_replace('+','',$body->from);
+//$to=$body->to;
+//$message=$body->message;

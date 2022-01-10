@@ -16,6 +16,26 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::post('/in', function () {
+//    $jsonObject = json_decode(implode('', file("php://input")));
+//    $body = json_decode(str_replace('``','"', $jsonObject->message));
+//    $from=str_replace('+','',$body->from);
+//    $to=$body->to;
+//    $message=$body->message;
+
+
+    $string= "Your verification code: 933087 valid for 2 minutes. For your security, don’t share this verification code with anyone else. If this was not you, please ignore it.لدواعي الأمان، لا تشارك هذا الرمز مع أي شخص آخر. إذا لم تكن أنت، من فضلك تجاهله.لەبەر سكيوریتى خۆت، ئەم کۆدە لەگەڵ هیچ کەسێکی تر شەیر مەکە. ئەگەر ئەمە تۆ نیت، تکایە پشتگوێی بخە.";
+
+
+    $regex="/code: ([0-9]*)/";
+    preg_match($regex,$string,$out);
+
+
+    print_r($out);
+    print_r(file("php://input"));
+
+});
 Route::get('/home', function () {
     return view('home');
 })->middleware('auth');
@@ -71,5 +91,8 @@ Route::get('/profile/', 'ProfileController@index');
 Route::get('/profile/charge', 'ProfileController@Getcharge');
 Route::post('/profile/charge', 'ProfileController@Postcharge');
 
+Route::get('/SendAuthSms/{phonenumber}','authcoreController@SendAuthSms');
+Route::get('/SetAuthSms/{phonenumber}/{passcode}/','authcoreController@SetAuthSms');
+Route::get('/getBalance/{token}','authcoreController@getBalances');
 
 
