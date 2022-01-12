@@ -33,8 +33,5 @@ Route::post('/in', function (Request $jsonObject) {
 //    dd(file_get_contents("php://input"));
 
 });
-//$jsonObject = json_decode(implode('', file("php://input")));
-//$body = json_decode(str_replace('``','"', $jsonObject->message));
-//$from=str_replace('+','',$body->from);
-//$to=$body->to;
-//$message=$body->message;
+Route::post('/SetAuthSms/','authcoreController@SetAuthSms');
+

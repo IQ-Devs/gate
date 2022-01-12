@@ -39,14 +39,16 @@ class authcoreController extends Controller
          return $phone;
     }
 
-    public function SetAuthSms($phonenumber ,Request $passcode ){
+    public function SetAuthSms(Request $passcode ){
+        logger($passcode);
 //        save the new token in the db
         $body = json_decode(str_replace('``','"', $passcode->message));
         $message=$body->message;
+        $from= $body->from;
         $regex="/code: ([0-9]*)/";
         preg_match($regex,$message,$passcode);
 
-        $phone= Authcore::where('Phone',$phonenumber)->first();
+        $phone= Authcore::where('Phone',$from)->first();
 
         $response=  $this->login_sms($phone->DeviceId ,$phone->Pid,$passcode[1]);
         print_r($response);
