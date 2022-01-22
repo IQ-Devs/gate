@@ -12,14 +12,19 @@ class PhoneTokenRenew implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
+    private $phonenumber;
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($phonenumber= null)
     {
         //
+
+
+        $this->phonenumber= $phonenumber;
+
     }
 
     /**
@@ -29,6 +34,13 @@ class PhoneTokenRenew implements ShouldQueue
      */
     public function handle()
     {
+        if ($this->phonenumber == null){
+        // condition for expired phones with queue time
+        }else{
+
+        }
+
+
         //
     }
 }
