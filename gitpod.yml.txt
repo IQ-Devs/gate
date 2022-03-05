@@ -1,0 +1,14 @@
+image:
+  file: .gitpod.Dockerfile
+ports:
+  # Laravel server
+  - port: 8000
+    onOpen: open-preview
+  # MySQL server
+  - port: 3306
+    onOpen: ignore
+
+tasks:
+  - init:  bash .gitpod-init.sh
+    command: >
+      php -S 0.0.0.0:8000 -t public
