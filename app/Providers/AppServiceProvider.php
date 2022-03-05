@@ -5,6 +5,7 @@ use  Illuminate\Support\Facades\Schema; // At the top of your file
 
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\URL;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -27,5 +28,8 @@ class AppServiceProvider extends ServiceProvider
     {
         //
         Schema::defaultStringLength(191);
+        if (env('APP ENV') !== 'local') {
+            URL::forceScheme('https');
+        }
     }
 }
