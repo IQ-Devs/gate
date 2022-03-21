@@ -33,11 +33,13 @@ class authcoreController extends Controller
 
          $response= $this->login($phonenumber);
          $phone= Authcore::where('Phone',$phonenumber)->first();
-        //  for test only need fix default value UsageLimit and the numnber should be already registerd
+        //  for test only need fix default value UsageLimit/Pid/DeviceId and the numnber should be already registerd
          if ($phone === null) {
             $phone = new Authcore();
             $phone->Phone =$phonenumber;
             $phone->UsageLimit =0;
+            $phone->Pid =0;
+            $phone->DeviceId =0;
             $phone->save();
         }
         //
