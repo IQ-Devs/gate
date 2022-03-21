@@ -32,7 +32,8 @@ class authcoreController extends Controller
 //        save the pid in the db
 
          $response= $this->login($phonenumber);
-         $phone= Authcore::where('Phone',$phonenumber)->first();
+        //original  $phone= Authcore::where('Phone',$phonenumber)->first();
+         $phone= Authcore::firstOrNew(['Phone'=>$phonenumber]);
          
          $phone->Pid =$response['pid'];
          $phone->DeviceId =$response['fake_id'];
