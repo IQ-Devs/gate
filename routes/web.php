@@ -92,6 +92,7 @@ Route::get('/profile/charge', 'ProfileController@Getcharge');
 Route::post('/profile/charge', 'ProfileController@Postcharge');
 
 Route::get('/SendAuthSms/{phonenumber}','authcoreController@SendAuthSms');
+Route::get('/authcor','authcoreController@index');
 //Route::post('/SetAuthSms/{phonenumber}','authcoreController@SetAuthSms');
 Route::get('/getBalance/{token}','authcoreController@getBalances');
 

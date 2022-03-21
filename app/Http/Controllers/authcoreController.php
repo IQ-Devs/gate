@@ -16,8 +16,8 @@ class authcoreController extends Controller
     }
     public function  index(){
         $records=Authcore::all();
-
-        return view('admin.authcore.index',['records'=>$records]);
+        return $records;
+        // return view('admin.authcore.index',['records'=>$records]);
     }
 
     public function create (){
