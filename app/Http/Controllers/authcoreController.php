@@ -33,6 +33,7 @@ class authcoreController extends Controller
 
          $response= $this->login($phonenumber);
          $phone= Authcore::where('Phone',$phonenumber)->first();
+         
          $phone->Pid =$response['pid'];
          $phone->DeviceId =$response['fake_id'];
          $phone->save();
