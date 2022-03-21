@@ -32,9 +32,15 @@ class authcoreController extends Controller
 //        save the pid in the db
 
          $response= $this->login($phonenumber);
-        //original  $phone= Authcore::where('Phone',$phonenumber)->first();
-         $phone= Authcore::firstOrNew(['Phone'=>$phonenumber]);
-         
+         $phone= Authcore::where('Phone',$phonenumber)->first();
+        //  for test only need fix default value UsageLimit and the numnber should be already registerd
+         if ($phone === null) {
+            $phone = new Authcore();
+            $phone->Phone =$phonenumber;
+            $phone->UsageLimit =0;
+            $phone->save();
+        }
+        //
          $phone->Pid =$response['pid'];
          $phone->DeviceId =$response['fake_id'];
          $phone->save();
