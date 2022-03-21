@@ -41,7 +41,6 @@ class authcoreController extends Controller
             $phone->Pid =0;
             $phone->DeviceId =0;
             $phone->API_Token =0;
-            
             $phone->save();
         }
         //
