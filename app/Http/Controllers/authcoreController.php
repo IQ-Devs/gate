@@ -38,7 +38,7 @@ class authcoreController extends Controller
          $phone->save();
          return $phone;
     }
-
+// this function return the api key
     public function SetAuthSms(Request $passcode ){
         logger($passcode);
 //        save the new token in the db
