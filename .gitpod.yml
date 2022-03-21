@@ -4,6 +4,7 @@ ports:
   # Laravel server
   - port: 8000
     onOpen: open-preview
+    visibility: public
   # MySQL server
   - port: 3306
     onOpen: ignore
