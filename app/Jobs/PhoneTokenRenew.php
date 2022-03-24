@@ -20,7 +20,7 @@ class PhoneTokenRenew implements ShouldQueue
      */
     public function __construct($phonenumber= null)
     {
-        //
+        //here run the check token function from asiacell trait according to phone providers 
 
 
         $this->phonenumber= $phonenumber;

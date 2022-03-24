@@ -73,4 +73,9 @@ trait Asiacell
 //        {"data":{"headers":null,"bodies":[{"groupId":0,"action":"open/uploadProfile","type":"profile","title":"Account overview","items":[{"name":"ابراهيم  قحطان","phoneNumber":"07724932437","photo":null}]},{"groupId":0,"action":"","type":"balance","title":"YOUR PREPAID BALANCE","items":[{"value":1135.25,"actionButton":{"title":"RECHARGE","action":"navigate/recharge"}}]},{"icon":"https://app.asiacell.com/img/icon/remaining_data.png","tag":"data","type":"giftBox","inverted":true,"title":"Remaining Data","items":[{"title":"Your current plan does not include Data","action":{"title":"Get Data add-ons now","action":"switchTab/addOn"}}]},{"icon":"https://app.asiacell.com/img/icon/remaining_call.png","tag":"call","type":"giftBox","inverted":true,"title":"Remaining Call","items":[{"title":"Your current plan does not include Call","action":{"title":"Get Call add-ons now","action":"switchTab/addOn"}}]},{"icon":"https://app.asiacell.com/img/icon/remaining_sms.png","tag":"sms","type":"giftBox","inverted":true,"title":"Remaining SMS","items":[{"title":"Your current plan does not include SMS","action":{"title":"Get SMS add-ons now","action":"switchTab/addOn"}}]}]},"success":true,"message":"Success"}
 
     }
+    public function checkToken(){
+
+
+        // return boolean flag or whatever the json returns 
+    }
 }
