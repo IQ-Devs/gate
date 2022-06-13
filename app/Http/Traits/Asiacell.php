@@ -58,7 +58,16 @@ trait Asiacell
 
         //        {"access_token":"eyJhbGciOiJIUzUxMiJ9.eyJ1c2VybmFtZSI6IjA3NzI0OTMyNDM3IiwiZXhwIjoxNjQxMzMxMTc3fQ.43-7U6HOq7DtbFcBYU6z4Qgk7ZScNAUp9YJc3QUbo0dK6qAE2WcBR1_21RIKFMg3BTcSN9D8_DIuiSzcGd8rtA","refresh_token":"eyJhbGciOiJIUzUxMiJ9.eyJ0eXBlIjoicmVmcmVzaFRva2VuIiwidXNlcm5hbWUiOiIwNzcyNDkzMjQzNyIsImV4cCI6MTY0NjQyODc3N30.ZVw8USbY674NE0sfzKCzjbkNjuTTl9csmCm03I9Vph_08-d1BDNyjnhRvPSrrlvqe58Ogy6VyHSNqg8JQkvGtQ","success":true,"token_type":"Bearer","userId":2119015,"username":"07724932437"}
     }
-
+//stdClass Object
+//(
+//[access_token] => eyJhbGciOiJIUzUxMiJ9.eyJ1c2VybmFtZSI6IjA3NzI0OTMyNDM3IiwiZXhwIjoxNjQ4ODUzMDMzfQ.7skyM2XpV6rv4Q-ZRYpi2RlWVAReu_J1P4fgVU0tlBMaixU6KAIQ48Vkll6sctxxAhNny20KdKsHYnxa7O2gyw
+//[refresh_token] => eyJhbGciOiJIUzUxMiJ9.eyJ0eXBlIjoicmVmcmVzaFRva2VuIiwidXNlcm5hbWUiOiIwNzcyNDkzMjQzNyIsImV4cCI6MTY1Mzk1MDYzM30.DJRPpUN66Ut8p0C_mSvoIusQP63U5AHJkx2UGI6ErtLkjGmXBJ4QAPR7k2s6OGu7LT76lPe3nAGW9vYtIzed3A
+//[success] => 1
+//[userType] => eligibleAvocado
+//[token_type] => Bearer
+//[userId] => 2119015
+//[username] => 07724932437
+//)
 
     public function  getBalance($token){
 
