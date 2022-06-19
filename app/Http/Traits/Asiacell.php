@@ -17,7 +17,7 @@ trait Asiacell
     }
     //first step in login
     public  function login($phonenumber){
-    $fake_id = $this->generate_id();
+        $fake_id = $this->generate_id();
         $send_sms =Http::withHeaders([
         'Origin'=>'https://app.asiacell.com',
         'DeviceID'=> $fake_id,
@@ -68,7 +68,7 @@ trait Asiacell
 //[userId] => 2119015
 //[username] => 07724932437
 //)
-
+    public function refreshToken($refresh_token){}
     public function  getBalance($token){
 
         $request =Http::withToken($token)->withHeaders([
@@ -85,6 +85,6 @@ trait Asiacell
     public function checkToken(){
 
 
-        // return boolean flag or whatever the json returns 
+        // return boolean flag or whatever the json returns
     }
 }
