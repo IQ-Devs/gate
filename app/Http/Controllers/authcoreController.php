@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 use App\Authcore;
 use Illuminate\Http\Request;
 use App\Http\Traits\Asiacell;
+use Illuminate\Support\Facades\Http;
+
 class authcoreController extends Controller
 {
     //
@@ -50,6 +52,7 @@ class authcoreController extends Controller
          return $phone;
     }
 // this function return the api key
+
     public function SetAuthSms(Request $passcode ){
         logger($passcode);
 //        save the new token in the db
@@ -69,9 +72,16 @@ class authcoreController extends Controller
         return $phone;
 
     }
+    public function RefreshToken($refresh_token)
+    {
+        return $this->refresh_Token($refresh_token);
+    }
+
     public function getBalances($token){
+        return $this->getBalance($token);
+    }
 
-        return  $this->getBalance($token);
-
+    public function checkToken($token){
+        return $this->check_Token($token);
     }
 }

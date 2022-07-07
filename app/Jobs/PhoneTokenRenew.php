@@ -2,11 +2,13 @@
 
 namespace App\Jobs;
 
+use App\Authcore;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use phpDocumentor\Reflection\DocBlock\Tags\Author;
 
 class PhoneTokenRenew implements ShouldQueue
 {
@@ -18,9 +20,9 @@ class PhoneTokenRenew implements ShouldQueue
      *
      * @return void
      */
-    public function __construct($phonenumber= null)
+    public function __construct(Authcore $phonenumber =null)
     {
-        //here run the check token function from asiacell trait according to phone providers 
+        //here run the check token function from asiacell trait according to phone providers
 
 
         $this->phonenumber= $phonenumber;
@@ -35,12 +37,17 @@ class PhoneTokenRenew implements ShouldQueue
     public function handle()
     {
         if ($this->phonenumber == null){
-        // condition for expired phones with queue time
-        }else{
+        foreach (Authcore::all() as $phonenumber){
+
+
+        // condition for expired / not working token  phones with queue time
+            if (!$phonenumber->checkToken()){
+//                $phonenumber->RefreshToken(); // here maybe we change it to queue and execute one after one at line 49
+            }
 
         }
-
-
-        //
+        }else{
+            $this->phonenumber->RefreshToken();
+        }
     }
 }
