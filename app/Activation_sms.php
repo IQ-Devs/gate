@@ -7,10 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 class Activation_sms extends Model
 {
     //
-    protected $table='activation_sms';
-public function phone (){
+    protected $table = 'activation_sms';
 
-    return $this->belongsTo(Phonelist::class,'Phone','Phone');
-}
+    public function phone()
+    {
+
+        return $this->belongsTo(Authcore::class, 'Phone', 'Phone');
+    }
 
 }

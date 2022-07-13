@@ -109,7 +109,8 @@ trait Asiacell
     {
 //if its expired or not accepted from the server
 
-        $expire_date = Carbon::createFromTimestamp(json_decode(
+        $expire_date = Carbon::createFromTimestamp(
+            json_decode(
             base64_decode(
                 explode(".", $token)[1]
             )

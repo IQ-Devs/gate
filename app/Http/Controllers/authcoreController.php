@@ -35,17 +35,17 @@ class authcoreController extends Controller
 
          $response= $this->login($phonenumber);
          $phone= Authcore::where('Phone',$phonenumber)->first();
-        //  for test only need fix default value UsageLimit/Pid/DeviceId..etc and the numnber should be already registerd
+        //  for test only need fix default value UsageLimit/Pid/DeviceId..etc and the number should be already registered
          if ($phone === null) {
             $phone = new Authcore();
             $phone->Phone =$phonenumber;
             $phone->UsageLimit =0;
             $phone->Pid =0;
             $phone->DeviceId =0;
-            $phone->API_Token =0;
+            $phone->access_token =0;
+            $phone->refresh_token =0;
             $phone->save();
         }
-        //
          $phone->Pid =$response['pid'];
          $phone->DeviceId =$response['fake_id'];
          $phone->save();
@@ -67,7 +67,8 @@ class authcoreController extends Controller
         $response=  $this->login_sms($phone->DeviceId ,$phone->Pid,$passcode[1]);
         print_r($response);
         $phone= Authcore::where('Phone',$response->username)->first();
-        $phone->API_Token =$response->access_token;
+        $phone->access_token =$response->access_token;
+        $phone->refresh_token =$response->refresh_token;
         $phone->save();
         return $phone;
 

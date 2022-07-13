@@ -23,8 +23,6 @@ class PhoneTokenRenew implements ShouldQueue
     public function __construct(Authcore $phonenumber =null)
     {
         //here run the check token function from asiacell trait according to phone providers
-
-
         $this->phonenumber= $phonenumber;
 
     }
@@ -36,17 +34,20 @@ class PhoneTokenRenew implements ShouldQueue
      */
     public function handle()
     {
+
         if ($this->phonenumber == null){
-        foreach (Authcore::all() as $phonenumber){
+            logger('searching for phone expired ');
 
-
+            foreach (Authcore::all() as $phonenumber){
+            logger('this phone number details'.$phonenumber);
         // condition for expired / not working token  phones with queue time
             if (!$phonenumber->checkToken()){
 //                $phonenumber->RefreshToken(); // here maybe we change it to queue and execute one after one at line 49
+            self::dispatch($phonenumber)->delay(now()->addMinutes(1));
             }
-
         }
         }else{
+            logger('refresh token running ');
             $this->phonenumber->RefreshToken();
         }
     }

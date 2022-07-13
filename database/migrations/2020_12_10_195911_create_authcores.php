@@ -23,8 +23,8 @@ class CreateAuthcores extends Migration
             $table->integer('UsageLimit');
             $table->string('Pid');
             $table->string('DeviceId');
-            $table->string('access_token');
-            $table->string('refresh_token');
+            $table->longText('access_token');
+            $table->longText('refresh_token');
             $table->timestamps();
         });
     }

@@ -8,7 +8,7 @@ class Authcore extends Model
 
 {
     use Asiacell;
-//return register this-> access_token/ refresh_token
+    //return register this-> access_token/ refresh_token
     public function RefreshToken()
     {
 
@@ -19,6 +19,10 @@ class Authcore extends Model
     }
 
     public function checkToken(){
+        logger('this token usde'.$this->access_token);
         return $this->check_Token($this->access_token);
     }
+
+
+
 }
