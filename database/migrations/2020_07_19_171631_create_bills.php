@@ -15,6 +15,7 @@ class CreateBills extends Migration
     {
         Schema::create('bills', function (Blueprint $table) {
             $table->id();
+            $table->enum('Charge_Type',\App\Enums::billType);
             $table->boolean('confirmed')->default(false);
             $table->integer('quantity');
             $table->integer('from')->unsigned()->references('id')->on('profiles');

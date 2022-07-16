@@ -13,14 +13,15 @@ class CreatePhoneTransfereLog extends Migration
      */
     public function up()
     {
-        Schema::create('phone_transfere_log', function (Blueprint $table) {
+        Schema::create('phone_transfer_log', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('phonelist_id')->references('id')->on('phonelists');
-            $table->unsignedBigInteger('charge_id')->references('id')->on('charges');
+            $table->unsignedBigInteger('authcore_id')->references('id')->on('authcores');
+            $table->unsignedBigInteger('user_id')->references('id')->on('users');
+            $table->string('user_phone');
             $table->string('Comments');
             $table->enum('charge_status',\App\Enums::charge_status);
-            $table->integer('Transvalue');
-            $table->integer('Balancebefore');
+            $table->integer('TransValue');// from the user
+            $table->integer('BalanceBefore');//from authcore before adding the transaction value
             $table->timestamps();
         });
     }

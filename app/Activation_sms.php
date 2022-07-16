@@ -8,6 +8,7 @@ class Activation_sms extends Model
 {
     //
     protected $table = 'activation_sms';
+    protected $fillable =['phoneNum','Provider','msgContext'];
 
     public function phone()
     {

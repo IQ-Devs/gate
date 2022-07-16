@@ -15,12 +15,11 @@ class CreatePhoneCardLog extends Migration
     {
         Schema::create('phone_card_log', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('phonelist_id')->references('id')->on('phonelists');
-            $table->unsignedBigInteger('charge_id')->references('id')->on('charges');
+            $table->unsignedBigInteger('authcores_id')->references('id')->on('authcores');
             $table->string('Comments');
             $table->enum('charge_status',\App\Enums::charge_status);
-            $table->integer('Cardvalue');
-            $table->integer('Balancebefore');
+            $table->integer('CardValue');
+            $table->integer('BalanceBefore');
             $table->timestamps();
         });
     }

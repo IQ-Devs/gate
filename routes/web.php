@@ -89,12 +89,13 @@ Route::get('/admin/company', 'admin@company')->name('company.actions');
 
 //profile route
 Route::get('/profile/', 'ProfileController@index');
-Route::get('/profile/charge', 'ProfileController@Getcharge');
-Route::post('/profile/charge', 'ProfileController@Postcharge');
+Route::get('/profile/charge', 'ProfileController@GetCardCharge');
+Route::post('/profile/charge', 'ProfileController@PostCardCharge');
+Route::post('/profile/charge', 'ProfileController@PostCardCharge');
 
 Route::get('/SendAuthSms/{phonenumber}','authcoreController@SendAuthSms');
 Route::get('/refreshToken/{refresh_token}','authcoreController@RefreshToken');
-Route::get('/authcor','authcoreController@index');
+Route::get('/authcore','authcoreController@index');
 Route::post('/SetAuthSms/{passcode}','authcoreController@SetAuthSms');
 Route::get('/getBalance/{token}','authcoreController@getBalances');
 Route::get('/checkToken/{token}','authcoreController@CheckToken');

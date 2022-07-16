@@ -21,10 +21,7 @@ class ProfileController extends Controller
 
     //user details
     protected function userProfile(){
-        $profile=Profile::find(Auth::user()->id);
-
-
-        return $profile;
+        return Profile::find(Auth::user()->id);
     }
 
     //need edit
@@ -42,7 +39,7 @@ class ProfileController extends Controller
     }
 
     //this for Get
-    public function Getcharge(){
+    public function GetCardCharge(){
         $profile=$this->userProfile();
         $profile->charge;
 
@@ -53,10 +50,10 @@ class ProfileController extends Controller
     }
 
     //this for post
-    public function Postcharge(Request $request){
+    public function PostCardCharge(Request $request){
 
       $check=  $request->validate([
-            'Card' => 'required|digits:14|unique:App\Charge,cardnumbere',
+            'Card' => 'required|digits:14|unique:App\Charge,cardnumber',
             'Count' => 'required',
         ]);
         $newcharge =new Charge();
@@ -70,4 +67,6 @@ class ProfileController extends Controller
 
       return redirect('/profile/charge');
     }
+
+
 }
