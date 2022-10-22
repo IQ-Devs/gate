@@ -12,6 +12,6 @@ class Enums extends Model
     const chargeType = ['cards' => 1, 'transfere' => 2,];
     const providers = ['asiacell' => 1, 'korek' => 2, 'zain' => 3,];
     const charge_status = ['completed' => 1, 'pending' => 2, 'rejected' => 3,];
-    const billType = [];
+    const billType = ['charge','transaction'];//transaction for sending money from 1 to 1
 
 }

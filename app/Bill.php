@@ -18,6 +18,11 @@ class Bill extends Model
         return $this->belongsTo(Profile::class, 'to');
     }
 
+    public function ChargeLog()
+    {
+        return $this->morphTo();
+    }
+
 
 
 }

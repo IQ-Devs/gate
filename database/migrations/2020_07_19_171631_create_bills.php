@@ -15,11 +15,12 @@ class CreateBills extends Migration
     {
         Schema::create('bills', function (Blueprint $table) {
             $table->id();
-            $table->enum('Charge_Type',\App\Enums::billType);
-            $table->boolean('confirmed')->default(false);
-            $table->integer('quantity');
-            $table->integer('from')->unsigned()->references('id')->on('profiles');
-            $table->integer('to')->unsigned()->references('id')->on('profiles');
+            $table->morphs('ChargeLog');
+            $table->enum('ChargeType',\App\Enums::billType);
+            $table->boolean('Confirmed')->default(false);
+            $table->integer('Quantity');
+            $table->integer('From')->unsigned()->references('id')->on('profiles');
+            $table->integer('To')->unsigned()->references('id')->on('profiles');
             $table->timestamps();
 
         });
