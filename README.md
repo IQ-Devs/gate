@@ -41,9 +41,11 @@ ddev launch
 
 # To Do List
 
+### general
+
 - [ ] add another  top up options
 
-- [ ] add bill type / charge/ transaction  etc.
+- [x] add bill type / charge/ transaction  etc. in bill migration file 
 
 - [ ] next step edit profile controller - link bill table with transfer-charge
 
@@ -51,6 +53,34 @@ ddev launch
 
 - [ ] add notifications sys for daily limit
 
+- [ ] enums
+
 - [x] android app for sending sms to the restful api
+  
+  
+
+---
+
+
+
+### core module
+
+#### create table to handle phones
+
+- [x]   table authcore-phones
+  
+  | ID  | PHONE | PROVIDER | BALANCE | STATUS | DAYLI LIMIT | API TOKEN | CHARGE TYPE |
+  | --- | ----- | -------- | ------- | ------ | ----------- | --------- | ----------- |
+  |     |       |          |         |        |             |           |             |
+
+#### create controller to handle multiple tasks
+
+- [ ] verify the charge transactions - card/transfer using the api (queue)
+
+- [ ] verify the charge transactions - card/transfer using the api (queue)
+
+- [ ] phone limit notifications for admin (middleware ) 
+
+- [ ]  CRUD  for admins 
 
 
