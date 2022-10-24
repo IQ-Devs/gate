@@ -60,7 +60,12 @@ class payment extends Controller
         //change bill status
 
         //check if company and payment same
-       $this->confirmBill($billID);
+
+
+        //todo : if return false mean  bill either declined or completed
+        if (!$this->confirmBill($billID)){
+          return   abort(403,'your process is already complete');
+        }
 
         $paymentID= Crypt::decryptString($paymentID);
 

@@ -18,7 +18,7 @@ class CreateAuthcores extends Migration
             $table->id();
             $table->string('Phone');
             $table->enum('Charge_Type',\App\Enums::chargeType);
-            $table->enum('Status',\App\Enums::status);
+            $table->enum('Status',\App\Enums::PhoneStatus);
             $table->enum('Provider',\App\Enums::providers);
             $table->integer('UsageLimit');
             $table->string('Pid');

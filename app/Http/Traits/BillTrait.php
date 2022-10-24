@@ -10,7 +10,7 @@ use Cknow\Money\Money;
 trait BillTrait{
 
 
-        public function createBill($from ,$to,$quantity)
+        public function createBill($from ,$to,$quantity): Bill
         {
 
             $create=new Bill();
@@ -22,17 +22,17 @@ trait BillTrait{
         }
 
 
-        public function confirmBill ($BillID)
+        public function confirmBill ($Bill)
         {
 
-            if ($BillID->confirmed ==true){
+            if ($Bill->confirmed ==true | false ){
 
-            return abort(403,'your process is already complete');
+            return false;
             }
-           $from=$BillID->from;
-           $to=$BillID->to;
-           $cost=Money::USD($BillID->quantity);
-           $BillID->confirmed=true;
+           $from=$Bill->from;
+           $to=$Bill->to;
+           $cost=Money::USD($Bill->quantity);
+           $Bill->confirmed=true;
 
 
 
@@ -44,7 +44,8 @@ trait BillTrait{
            $ToBalance->balance=Money::USD($ToBalance->balance)->add($cost)->getAmount();
            $ToBalance->save();
 
-           $BillID->save();
+           $Bill->save();
+           return $Bill->confirmed;
 
         }
 
