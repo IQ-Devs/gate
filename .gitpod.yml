@@ -5,11 +5,11 @@ tasks:
   - before: ddev start
   - init: |
       ddev composer install 
-      ddev npm install
+      ddev npm install 
       ddev npm run dev
-  - command: |
-      ddev php artisan migrate 
-      ddev php artisan db:seed 
+  - command: 
+      ddev php artisan migrate &&
+      ddev php artisan db:seed &&
       ddev lanuch
 
 vscode:
