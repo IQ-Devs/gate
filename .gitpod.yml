@@ -2,9 +2,14 @@ image: drud/ddev-gitpod-base:latest
 
 tasks:
   - name: ddev-gitpod-launcher
-    init: 
-      ddev composer install , npm ,migrate ,seed 
-    command: echo "write your commands here";
+  - before: ddev start
+  - init: |
+      ddev composer install 
+      ddev npm install
+      ddev npm run dev
+      ddev php artisan migrate 
+      ddev php artisan db:seed 
+  - command: ddev
 
 vscode:
   extensions:
