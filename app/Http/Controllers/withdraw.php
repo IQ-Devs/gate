@@ -2,35 +2,33 @@
 
 namespace App\Http\Controllers;
 
-use App\Profile;
+use App\Models\Profile;
 use Illuminate\Http\Request;
 
 class withdraw extends Controller
 {
     //
-    public function index(Request $request){
+    public function index(Request $request)
+    {
         if ($request->isMethod('post')) {
             //
-         return  redirect()->route('withdraw.show', $request->input('search'));
+            return  redirect()->route('withdraw.show', $request->input('search'));
         }
-   //  echo money(  Profile::sum('balance'),'USD');
+        //  echo money(  Profile::sum('balance'),'USD');
         return view('admin.withdraw.index');
-
-
     }
 
-    public function show (Profile $id ){
+    public function show(Profile $id)
+    {
         if ($id->company === null) {
-            return  abort(403,'user not found ');
+            return  abort(403, 'user not found ');
         }
-    return view('admin.withdraw.show',['profiles'=>$id]);
 
+        return view('admin.withdraw.show', ['profiles' => $id]);
     }
 
-    public function process (Profile $id ){
-
-    return view('admin.withdraw.show',['profiles'=>$id]);
-
+    public function process(Profile $id)
+    {
+        return view('admin.withdraw.show', ['profiles' => $id]);
     }
-
 }

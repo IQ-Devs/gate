@@ -25,35 +25,25 @@ Route::post('/in', function () {
 //    $to=$body->to;
 //    $message=$body->message;
 
+    $string = 'Your verification code: 933087 valid for 2 minutes. For your security, don’t share this verification code with anyone else. If this was not you, please ignore it.لدواعي الأمان، لا تشارك هذا الرمز مع أي شخص آخر. إذا لم تكن أنت، من فضلك تجاهله.لەبەر سكيوریتى خۆت، ئەم کۆدە لەگەڵ هیچ کەسێکی تر شەیر مەکە. ئەگەر ئەمە تۆ نیت، تکایە پشتگوێی بخە.';
 
-    $string= "Your verification code: 933087 valid for 2 minutes. For your security, don’t share this verification code with anyone else. If this was not you, please ignore it.لدواعي الأمان، لا تشارك هذا الرمز مع أي شخص آخر. إذا لم تكن أنت، من فضلك تجاهله.لەبەر سكيوریتى خۆت، ئەم کۆدە لەگەڵ هیچ کەسێکی تر شەیر مەکە. ئەگەر ئەمە تۆ نیت، تکایە پشتگوێی بخە.";
-
-
-    $regex="/code: ([0-9]*)/";
-    preg_match($regex,$string,$out);
-
+    $regex = '/code: ([0-9]*)/';
+    preg_match($regex, $string, $out);
 
     print_r($out);
-    print_r(file("php://input"));
-
+    print_r(file('php://input'));
 });
 Route::get('/home', function () {
     return view('home');
 })->middleware('auth');
 
-
-
-
-
-
-
 Route::get('logout', function () {
     Auth::logout();
+
     return view('welcome');
 });
 
 Auth::routes();
-
 
 //withdraw money
 Route::get('/withdraw', 'withdraw@index')->name('withdraw');
@@ -85,19 +75,15 @@ Route::get('/admin/chargeCheck/reject/{id}', 'admin@chargeReject')->name('chrage
 Route::post('/admin/company', 'admin@addCompany')->name('company.add');
 Route::get('/admin/company', 'admin@company')->name('company.actions');
 
-
-
 //profile route
 Route::get('/profile/', 'ProfileController@index');
 Route::get('/profile/charge', 'ProfileController@GetCardCharge');
 Route::post('/profile/charge', 'ProfileController@PostCardCharge');
 Route::post('/profile/charge', 'ProfileController@PostCardCharge');
 
-Route::get('/SendAuthSms/{phonenumber}','authcoreController@SendAuthSms');
-Route::get('/refreshToken/{refresh_token}','authcoreController@RefreshToken');
-Route::get('/authcore','authcoreController@index');
-Route::post('/SetAuthSms/{passcode}','authcoreController@SetAuthSms');
-Route::get('/getBalance/{token}','authcoreController@getBalances');
-Route::get('/checkToken/{token}','authcoreController@CheckToken');
-
-
+Route::get('/SendAuthSms/{phonenumber}', 'authcoreController@SendAuthSms');
+Route::get('/refreshToken/{refresh_token}', 'authcoreController@RefreshToken');
+Route::get('/authcore', 'authcoreController@index');
+Route::post('/SetAuthSms/{passcode}', 'authcoreController@SetAuthSms');
+Route::get('/getBalance/{token}', 'authcoreController@getBalances');
+Route::get('/checkToken/{token}', 'authcoreController@CheckToken');

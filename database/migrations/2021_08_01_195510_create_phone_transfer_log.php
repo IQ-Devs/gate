@@ -19,9 +19,9 @@ class CreatePhoneTransferLog extends Migration
             $table->unsignedBigInteger('user_id')->references('id')->on('users');
             $table->string('user_phone');
             $table->string('Comments');
-            $table->enum('charge_status',\App\Enums::charge_status);
-            $table->integer('TransValue');// from the user
-            $table->integer('BalanceBefore');//from authcore before adding the transaction value
+            $table->enum('charge_status', \App\Models\Enums::charge_status);
+            $table->integer('TransValue'); // from the user
+            $table->integer('BalanceBefore'); //from authcore before adding the transaction value
             $table->timestamps();
         });
     }

@@ -21,18 +21,15 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 //we will use this route to upload all sms with any provider we have (phone, simbank , gatebank)
 // Route::post('/UploadSms', 'SmsServerController@upload');
 Route::post('/in', function (Request $jsonObject) {
-    $body = json_decode(str_replace('``','"', $jsonObject->message));
+    $body = json_decode(str_replace('``', '"', $jsonObject->message));
 //    $from=str_replace('+','',$body->from);
-    $message=$body->message;
+    $message = $body->message;
 
-    $regex="/code: ([0-9]*)/";
-    preg_match($regex,$message,$code);
-
+    $regex = '/code: ([0-9]*)/';
+    preg_match($regex, $message, $code);
 
     print_r($code[1]);
 //    dd(file_get_contents("php://input"));
-
 });
 
-Route::post('/SetAuthSms/','authcoreController@SetAuthSms');
-
+Route::post('/SetAuthSms/', 'authcoreController@SetAuthSms');

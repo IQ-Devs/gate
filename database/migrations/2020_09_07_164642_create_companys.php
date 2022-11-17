@@ -15,7 +15,7 @@ class CreateCompanys extends Migration
     {
         Schema::create('companys', function (Blueprint $table) {
             $table->id()->autoIncrement();
-            $table->string('CallBackUrl')->nullable($value = true)	; //need to delete last edit null
+            $table->string('CallBackUrl')->nullable($value = true); //need to delete last edit null
             $table->integer('profile_id')->unsigned()->references('id')->on('profiles');
             $table->integer('token');
             $table->float('percentage')->default('5');

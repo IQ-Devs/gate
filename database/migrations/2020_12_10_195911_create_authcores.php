@@ -14,12 +14,11 @@ class CreateAuthcores extends Migration
     public function up()
     {
         Schema::create('authcores', function (Blueprint $table) {
-
             $table->id();
             $table->string('Phone');
-            $table->enum('Charge_Type',\App\Enums::chargeType);
-            $table->enum('Status',\App\Enums::PhoneStatus);
-            $table->enum('Provider',\App\Enums::providers);
+            $table->enum('Charge_Type', \App\Models\Enums::chargeType);
+            $table->enum('Status', \App\Models\Enums::PhoneStatus);
+            $table->enum('Provider', \App\Models\Enums::providers);
             $table->integer('UsageLimit');
             $table->string('Pid');
             $table->string('DeviceId');
