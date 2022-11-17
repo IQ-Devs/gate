@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use App\Http\Traits\Asiacell;
 use Illuminate\Database\Eloquent\Model;

@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Authcore;
+use App\Models\Authcore;
 use App\Http\Traits\Asiacell;
 use Illuminate\Database\Seeder;
 
@@ -19,7 +19,7 @@ class AuthcoreSeeder extends Seeder
     {
         $phonenumber = '07724932437';
         $response = $this->login($phonenumber);
-        $phone = \App\Authcore::where('Phone', $phonenumber)->first();
+        $phone = \App\Models\Authcore::where('Phone', $phonenumber)->first();
         //  for test only need fix default value UsageLimit/Pid/DeviceId..etc and the number should be already registered
         if ($phone === null) {
             $phone = new Authcore();

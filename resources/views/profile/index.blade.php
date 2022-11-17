@@ -71,8 +71,8 @@
                                 <td>@money($bill['quantity'],'USD')</td>
                                 <td>{{$bill->billsSent->user->name}}</td>
                                 <td>{{$bill->billsReceived->user->name}}</td>
-{{-- <td>{{\App\Profile::find(  $bill['from'])->user->name}}</td>--}}
-{{--                                <td>{{\App\Profile::find(  $bill['to'])->user->name}}</td>--}}
+{{-- <td>{{\App\Models\Profile::find(  $bill['from'])->user->name}}</td>--}}
+{{--                                <td>{{\App\Models\Profile::find(  $bill['to'])->user->name}}</td>--}}
 
                                 <td>{{  \Carbon\Carbon::parse($bill['created_at'])->format('Y / m / d - h : i') }}</td>
 

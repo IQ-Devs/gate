@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Charge;
-use App\Company;
+use App\Models\Charge;
+use App\Models\Company;
 use Illuminate\Http\Request;
 
 class donate extends Controller
@@ -19,7 +19,7 @@ class donate extends Controller
     public function confirm(Company $companyID, Request $request)
     {
         $check = $request->validate([
-            'Card' => 'required|digits:14|unique:App\Charge,cardnumbere',
+            'Card' => 'required|digits:14|unique:App\Models\Charge,cardnumbere',
             'Count' => 'required',
         ]);
         $newcharge = new Charge();

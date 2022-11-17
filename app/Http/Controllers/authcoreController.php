@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Activation_sms;
-use App\Authcore;
+use App\Models\Activation_sms;
+use App\Models\Authcore;
 use App\Http\Traits\Asiacell;
 use Illuminate\Http\Request;
 

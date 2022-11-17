@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Bill;
-use App\Company;
+use App\Models\Bill;
+use App\Models\Company;
 use App\Http\Traits\BillTrait;
-use App\Profile;
+use App\Models\Profile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;

@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Charge;
-use App\Company;
-use App\Profile;
+use App\Models\Charge;
+use App\Models\Company;
+use App\Models\Profile;
 use Illuminate\Http\Request;
 
 class admin extends Controller
@@ -89,7 +89,7 @@ class admin extends Controller
     public function addCompany(Request $request)
     {
         $request->validate([
-            'profileID' => 'required|exists:App\Profile,id',
+            'profileID' => 'required|exists:App\Models\Profile,id',
         ]);
 
         $profile = Company::where('profile_id', '=', $request->profileID)->first();

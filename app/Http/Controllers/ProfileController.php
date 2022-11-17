@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Bill;
-use App\Charge;
-use App\Profile;
-use App\User;
+use App\Models\Bill;
+use App\Models\Charge;
+use App\Models\Profile;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -51,7 +51,7 @@ class ProfileController extends Controller
     public function PostCardCharge(Request $request)
     {
         $check = $request->validate([
-            'Card' => 'required|digits:14|unique:App\Charge,cardnumber',
+            'Card' => 'required|digits:14|unique:App\Models\Charge,cardnumber',
             'Count' => 'required',
         ]);
         $newcharge = new Charge();

@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -12,17 +12,17 @@ class Profile extends Model
 
     public function charge()
     {
-        return $this->hasMany(\App\Charge::class);
+        return $this->hasMany(\App\Models\Charge::class);
     }
 
     public function user()
     {
-        return $this->belongsTo(\App\User::class);
+        return $this->belongsTo(\App\Models\User::class);
     }
 
     public function company()
     {
-        return $this->hasOne(\App\Company::class);
+        return $this->hasOne(\App\Models\Company::class);
     }
 
     public function billsSent()

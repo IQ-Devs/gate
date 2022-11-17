@@ -2,8 +2,8 @@
 
 namespace App\Http\Traits;
 
-use App\Bill;
-use App\Profile;
+use App\Models\Bill;
+use App\Models\Profile;
 use Cknow\Money\Money;
 
 trait BillTrait
