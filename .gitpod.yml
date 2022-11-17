@@ -8,6 +8,7 @@ tasks:
       ddev start -y
     init: | 
       ddev composer install
+      ddev npm i -g npm@latest
       ddev npm install 
       ddev npm audit fix --force  
       
