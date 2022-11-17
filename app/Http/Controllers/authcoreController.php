@@ -4,9 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Activation_sms;
 use App\Authcore;
-use Illuminate\Http\Request;
 use App\Http\Traits\Asiacell;
-use Illuminate\Support\Facades\Http;
+use Illuminate\Http\Request;
 
 class authcoreController extends Controller
 {
@@ -27,8 +26,6 @@ class authcoreController extends Controller
 
     public function create()
     {
-
-
     }
 
     //
@@ -53,10 +50,11 @@ class authcoreController extends Controller
         $phone->Pid = $response['pid'];
         $phone->DeviceId = $response['fake_id'];
         $phone->save();
+
         return $phone;
     }
 
-// this function return the api key
+    // this function return the api key
 
     public function SetAuthSms(Request $passcode)
     {
@@ -65,10 +63,10 @@ class authcoreController extends Controller
         $body = json_decode(str_replace('``', '"', $passcode->message));
         $message = $body->message;
         $from = $body->from;
-        $regex = "/code: ([0-9]*)/";
+        $regex = '/code: ([0-9]*)/';
         Activation_sms::create([
             'phoneNum' => $from,
-            'msgContext' => $message
+            'msgContext' => $message,
         ]);
         preg_match($regex, $message, $passcode);
         $phone = Authcore::where('Phone', $from)->first();
@@ -77,8 +75,8 @@ class authcoreController extends Controller
         $phone->access_token = $response->access_token;
         $phone->refresh_token = $response->refresh_token;
         $phone->save();
-        return $phone;
 
+        return $phone;
     }
 
     public function RefreshToken($refresh_token)

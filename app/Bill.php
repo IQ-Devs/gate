@@ -10,11 +10,13 @@ class Bill extends Model
 
     //Bill Model
 
-    public function billsSent(){
-        return $this->belongsTo(Profile::class, 'from' );
+    public function billsSent()
+    {
+        return $this->belongsTo(Profile::class, 'from');
     }
 
-    public function billsReceived(){
+    public function billsReceived()
+    {
         return $this->belongsTo(Profile::class, 'to');
     }
 
@@ -22,7 +24,4 @@ class Bill extends Model
     {
         return $this->morphTo();
     }
-
-
-
 }

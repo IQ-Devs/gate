@@ -1,9 +1,10 @@
 <?php
+
 namespace Database\Seeders;
 
 use App\Authcore;
-use Illuminate\Database\Seeder;
 use App\Http\Traits\Asiacell;
+use Illuminate\Database\Seeder;
 
 class AuthcoreSeeder extends Seeder
 {
@@ -16,27 +17,24 @@ class AuthcoreSeeder extends Seeder
      */
     public function run()
     {
-        $phonenumber='07724932437';
-        $response= $this->login($phonenumber);
-        $phone= \App\Authcore::where('Phone',$phonenumber)->first();
+        $phonenumber = '07724932437';
+        $response = $this->login($phonenumber);
+        $phone = \App\Authcore::where('Phone', $phonenumber)->first();
         //  for test only need fix default value UsageLimit/Pid/DeviceId..etc and the number should be already registered
         if ($phone === null) {
             $phone = new Authcore();
-            $phone->Phone =$phonenumber;
-            $phone->UsageLimit =0;
-            $phone->Pid =0;
-            $phone->DeviceId =0;
-            $phone->access_token =0;
-            $phone->refresh_token =0;
+            $phone->Phone = $phonenumber;
+            $phone->UsageLimit = 0;
+            $phone->Pid = 0;
+            $phone->DeviceId = 0;
+            $phone->access_token = 0;
+            $phone->refresh_token = 0;
             $phone->save();
         }
-        $phone->Pid =$response['pid'];
-        $phone->DeviceId =$response['fake_id'];
+        $phone->Pid = $response['pid'];
+        $phone->DeviceId = $response['fake_id'];
         $phone->save();
+
         return $phone;
     }
-
-
-
-
 }

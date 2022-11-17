@@ -17,7 +17,7 @@ class CreatePhoneCardLog extends Migration
             $table->id();
             $table->unsignedBigInteger('authcores_id')->references('id')->on('authcores');
             $table->string('Comments');
-            $table->enum('charge_status',\App\Enums::charge_status);
+            $table->enum('charge_status', \App\Enums::charge_status);
             $table->integer('CardValue');
             $table->integer('BalanceBefore');
             $table->timestamps();

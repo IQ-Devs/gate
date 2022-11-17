@@ -8,9 +8,8 @@ class Charge extends Model
 {
     //
 
-    public function profile(){
+    public function profile()
+    {
         return $this->belongsTo('App\Profile');
-
     }
-
 }

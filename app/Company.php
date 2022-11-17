@@ -7,10 +7,11 @@ use Keygen\Keygen;
 
 class Company extends Model
 {
-protected $table='companys';
-    //
-    public function  profile(){
+    protected $table = 'companys';
 
+    //
+    public function profile()
+    {
         return $this->belongsTo('App\Profile');
     }
 //    protected static function boot() {
