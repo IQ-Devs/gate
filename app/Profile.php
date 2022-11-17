@@ -12,17 +12,17 @@ class Profile extends Model
 
     public function charge()
     {
-        return $this->hasMany('App\Charge');
+        return $this->hasMany(\App\Charge::class);
     }
 
     public function user()
     {
-        return $this->belongsTo('App\User');
+        return $this->belongsTo(\App\User::class);
     }
 
     public function company()
     {
-        return $this->hasOne('App\Company');
+        return $this->hasOne(\App\Company::class);
     }
 
     public function billsSent()

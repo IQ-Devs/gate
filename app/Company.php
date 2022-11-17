@@ -12,7 +12,7 @@ class Company extends Model
     //
     public function profile()
     {
-        return $this->belongsTo('App\Profile');
+        return $this->belongsTo(\App\Profile::class);
     }
 //    protected static function boot() {
 //        parent::boot();
