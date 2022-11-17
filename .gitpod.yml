@@ -2,12 +2,12 @@ image: drud/ddev-gitpod-base:latest
 
 tasks:
   - name: ddev-gitpod-launcher
-  - before: ddev start -y
-  - init: 
+    before: ddev start -y
+    init: | 
       ddev composer install &&
       ddev npm install &&
       ddev npm run dev
-  - command: |
+    command: |
       export DDEV_NONINTERACTIVE=true 
       ddev php artisan migrate &&
       ddev php artisan db:seed &&
