@@ -2,15 +2,23 @@ image: drud/ddev-gitpod-base:20221018
 
 tasks:
   - name: ddev-gitpod-launcher
-    before: ddev start -y
+    before: |
+      apt-get update
+      apt-get install -y ddev
+      ddev start -y
     init: | 
-      ddev composer install &&
-      ddev npm install &&
+      ddev composer install
+      ddev npm install 
+      ddev npm audit fix --force  
+      
       ddev npm run dev
     command: |
       export DDEV_NONINTERACTIVE=true 
-      ddev php artisan migrate &&
-      ddev php artisan db:seed &&
+      ddev exec "cat .env.example | sed  -E 's/DB_(HOST|DATABASE|USERNAME|PASSWORD)=(.*)/DB_\1=db/g' > .env"
+      ddev exec 'sed -i "s#APP_URL=.*#APP_URL=${DDEV_PRIMARY_URL}#g" .env'
+      ddev exec "php artisan key:generate"
+      ddev php artisan migrate 
+      ddev php artisan db:seed 
       ddev launch
 
 vscode:
