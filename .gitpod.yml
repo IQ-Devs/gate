@@ -43,7 +43,7 @@ jetbrains:
       - de.docs_as_co.intellij.plugin.diagramsnet
       - com.github.googee.laravelgenerator
       - com.laravel_idea.plugin
-      -com.github.lppedd.idea-conventional-commit
+      - com.github.lppedd.idea-conventional-commit
       
       
 github:
