@@ -8,6 +8,9 @@ tasks:
       apt-get install -y ddev
       ddev start -y
       export DDEV_NONINTERACTIVE=true
+
+      ddev exec "composer install"
+
       ddev exec "cat .env.example | sed  -E 's/DB_(HOST|DATABASE|USERNAME|PASSWORD)=(.*)/DB_\1=db/g' > .env"
       ddev exec 'sed -i "s#APP_URL=.*#APP_URL=${DDEV_PRIMARY_URL}#g" .env'
       ddev exec "php artisan key:generate"
