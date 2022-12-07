@@ -3,10 +3,16 @@ image: drud/ddev-gitpod-base:20221018
 tasks:
   - name: ddev-gitpod-launcher
     before: |
-      {export TASK="before" ; .gitpod.sh }
+      {
+      export TASK="before"
+      .gitpod.sh
+      }
 
     init: |
-      {export TASK="init" ; .gitpod.sh }
+      {
+      export TASK="init"
+      .gitpod.sh 
+      }
 
     command: |
 
