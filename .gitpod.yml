@@ -14,12 +14,12 @@ tasks:
       ddev exec "php artisan migrate"
       ddev exec "php artisan db:seed"
       ddev exec "php artisan storage:link"
-    init: | 
+    init: |
       ddev composer install
       ddev npm i -g npm@latest
-      ddev npm install 
-      ddev npm audit fix --force  
-      
+      ddev npm install
+      ddev npm audit fix --force
+
       ddev npm run dev
     command: |
 
@@ -37,15 +37,17 @@ vscode:
 jetbrains:
   phpstorm:
     prebuilds:
-      version: stable 
+      version: stable
     plugins:
       - ru.adelf.idea.dotenv
       - de.docs_as_co.intellij.plugin.diagramsnet
       - com.github.googee.laravelgenerator
       - com.laravel_idea.plugin
       - com.github.lppedd.idea-conventional-commit
-      
-      
+      - de.docs_as_co.intellij.plugin.diagramsnet
+
+
+
 github:
   prebuilds:
     # enable for the master/default branch (defaults to true)
