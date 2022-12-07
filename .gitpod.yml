@@ -4,14 +4,14 @@ tasks:
   - name: ddev-gitpod-launcher
     before: |
       {
-      export TASK="before"
-      .gitpod.sh
+      export TASK="before";
+      bash .gitpod.sh
       }
 
     init: |
       {
-      export TASK="init"
-      .gitpod.sh 
+      export TASK="init";
+      bash .gitpod.sh 
       }
 
     command: |
