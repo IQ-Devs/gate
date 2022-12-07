@@ -3,27 +3,11 @@ image: drud/ddev-gitpod-base:20221018
 tasks:
   - name: ddev-gitpod-launcher
     before: |
-      if [ $GITPOD_IDE_ALIAS = "phpstorm" ]; then echo -e 'alias npm="ddev exec npm " \n alias php="ddev exec php"  ' >> ~/.bashrc  ;fi
-      apt-get update
-      apt-get install -y ddev
-      ddev start -y
-      export DDEV_NONINTERACTIVE=true
+      {export TASK="before" ; .gitpod.sh }
 
-      ddev exec "composer install"
-
-      ddev exec "cat .env.example | sed  -E 's/DB_(HOST|DATABASE|USERNAME|PASSWORD)=(.*)/DB_\1=db/g' > .env"
-      ddev exec 'sed -i "s#APP_URL=.*#APP_URL=${DDEV_PRIMARY_URL}#g" .env'
-      ddev exec "php artisan key:generate"
-      ddev exec "php artisan migrate"
-      ddev exec "php artisan db:seed"
-      ddev exec "php artisan storage:link"
     init: |
-      ddev composer install
-      ddev npm i -g npm@latest
-      ddev npm install
-      ddev npm audit fix --force
+      {export TASK="init" ; .gitpod.sh }
 
-      ddev npm run dev
     command: |
 
       ddev launch
