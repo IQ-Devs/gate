@@ -17,7 +17,7 @@ class PhoneTokenRenew implements ShouldQueue
 
     /**
      * Create a new job instance.
-     *
+     *   parameter passed from the queue
      * @return void
      */
     public function __construct(Authcore $phonenumber = null)

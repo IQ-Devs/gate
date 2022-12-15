@@ -20,9 +20,9 @@ class TopUpController extends Controller
     {
 
         //return active number
-        $number= Authcore::where('status',Enums::PhoneStatus['active'])->first();
+        $number = Authcore::where('status', Enums::PhoneStatus['active'])->first();
         //open session for the user
-        $this->dispatch(PendingTransactionSolver::class); // five minute
+        $this->dispatch(PendingTransactionSolver::class); // five minute time out and create the log
         //log the transaction
         PhoneTransferLog::class;
         //bill and send the money to the user

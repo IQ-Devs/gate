@@ -12,6 +12,12 @@ class PendingTransactionSolver implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
+//I'm using same class for the tasks scheduler and queue
+// be sure of the translation type transfer
+// TO-Do
+// check busy phones  then get the transaction log  by the relation in the mode and run checks according to the charge type transfer
+
+
     /**
      * Create a new job instance.
      *
@@ -19,7 +25,7 @@ class PendingTransactionSolver implements ShouldQueue
      */
     public function __construct()
     {
-        //
+        // check all pending top-up requests for transfer by phone status and charge type
     }
 
     /**

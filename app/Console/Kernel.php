@@ -28,7 +28,7 @@ class Kernel extends ConsoleKernel
         // $schedule->command('inspire')->hourly();
 //         $schedule->job(new PhoneTokenRenew())->daily();
         $schedule->job(new PhoneTokenRenew())->everyMinute();
-        $schedule->command('queue:work')->everyMinute();
+//        $schedule->command('queue:work')->everyMinute();  // maybe after  I use the supervisor theres no need for this line !
     }
 
     /**
