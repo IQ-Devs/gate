@@ -4,6 +4,8 @@ namespace Database\Seeders;
 
 use App\Models\Authcore;
 use App\Http\Traits\Asiacell;
+use App\Models\PhoneLog;
+use App\Models\PhoneTransferLog;
 use Illuminate\Database\Seeder;
 
 class AuthcoreSeeder extends Seeder
@@ -35,6 +37,21 @@ class AuthcoreSeeder extends Seeder
         $phone->DeviceId = $response['fake_id'];
         $phone->save();
 
+         $log = new PhoneLog();
+         $log->authcore_id =1;
+         $log->chargeStatus =2;
+         $log->user_id =1;
+         $log->loggable_id =1;
+         $log->loggable_type = "App\Models\PhoneTransferLog";
+         PhoneTransferLog::create([
+             'user_phone'=>1,
+             'Comments'=>1,
+             'TransValue'=>1,
+             'BalanceBefore'=>1,
+
+         ]);
+
+         $log->save();
         return $phone;
     }
 }

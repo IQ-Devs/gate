@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Http\Traits\Asiacell;
+use App\Repositories\AsiacellProvider;
 use Illuminate\Database\Eloquent\Model;
 
 class Authcore extends Model
@@ -20,8 +21,21 @@ class Authcore extends Model
 
     public function checkToken()
     {
-        logger('this token usde'.$this->access_token);
+        logger('this token used'.$this->access_token);
 
         return $this->check_Token($this->access_token);
+    }
+
+    public function logs(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(PhoneLog::class);
+    }
+
+    public function getSmsProvider(): AsiacellProvider
+    {
+        return match ($this->Provider) {
+            'asiacell' => app()->makeWith(AsiacellProvider::class,['authcore'=>$this]),//going to use enum here
+            default => throw new InvalidArgumentException("[{$this->Provider}] is an invalid provider"),
+        };
     }
 }

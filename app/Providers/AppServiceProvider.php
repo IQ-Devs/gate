@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Interfaces\CellProviderInterface;
+use App\Repositories\AsiacellProvider;
 use  Illuminate\Support\Facades\Schema; // At the top of your file
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
@@ -16,6 +18,9 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         //
+//        $this->app->bind(CellProviderInterface::class, AsiacellProvider::class);
+
+
     }
 
     /**

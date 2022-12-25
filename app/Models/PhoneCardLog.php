@@ -10,8 +10,14 @@ class PhoneCardLog extends Model
 
 
     //to get the bill of the charge
-    public function Bill()
+    public function Bill(): \Illuminate\Database\Eloquent\Relations\MorphMany
     {
         return $this->morphMany(Bill::class, 'ChargeLog');
+    }
+
+    public function logs(): \Illuminate\Database\Eloquent\Relations\MorphOne
+    {
+        return $this->morphOne(PhoneLog::class, 'loggable');
+
     }
 }

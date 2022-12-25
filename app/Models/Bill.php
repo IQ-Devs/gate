@@ -11,17 +11,17 @@ class Bill extends Model
 
     //Bill Model
 
-    public function billsSent()
+    public function billsSent(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Profile::class, 'from');
     }
 
-    public function billsReceived()
+    public function billsReceived(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Profile::class, 'to');
     }
 
-    public function ChargeLog()
+    public function ChargeLog(): \Illuminate\Database\Eloquent\Relations\MorphTo
     {
         //this must be called in card and transfer log models to view charge bills for the user
         return $this->morphTo();

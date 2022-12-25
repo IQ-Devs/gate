@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePhoneCardLog extends Migration
+class CreatePhoneTransferLogs extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,12 @@ class CreatePhoneCardLog extends Migration
      */
     public function up()
     {
-        Schema::create('phone_card_log', function (Blueprint $table) {
+        Schema::create('phone_transfer_logs', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('authcores_id')->references('id')->on('authcores');
+            $table->string('user_phone');
             $table->string('Comments');
-            $table->enum('charge_status', \App\Models\Enums::charge_status);
-            $table->integer('CardValue');
-            $table->integer('BalanceBefore');
+            $table->integer('TransValue'); // from the user
+            $table->integer('BalanceBefore'); //from authcore before adding the transaction value
             $table->timestamps();
         });
     }
@@ -31,6 +30,6 @@ class CreatePhoneCardLog extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('phone_card_log');
+        Schema::dropIfExists('phone_transfere_log');
     }
 }
