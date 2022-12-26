@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Http;
 trait Asiacell
 {
     //fake pc id
-    public function login($phonenumber)
+    public function login($phonenumber): array
     {
         $fake_id = $this->generate_id();
         $send_sms = Http::withHeaders([
@@ -33,7 +33,7 @@ trait Asiacell
 
     //first step in login
 
-    public function generate_id()
+    public function generate_id(): string
     {
         // generate a psuedo-random DeviceID //////////////////////////////////////////////
         $id = '04d1641e964250790b';
@@ -74,7 +74,7 @@ trait Asiacell
     //[userId] => 2119015
     //[username] => 07724932437
     //)
-    public function refresh_Token($refresh_token)
+    public function refresh_Token($refresh_token): \GuzzleHttp\Promise\PromiseInterface|\Illuminate\Http\Client\Response
     {
         return Http::withHeaders([
             'Origin' => 'https://odpapp.asiacell.com',
@@ -102,7 +102,7 @@ trait Asiacell
 //        {"data":{"headers":null,"bodies":[{"groupId":0,"action":"open/uploadProfile","type":"profile","title":"Account overview","items":[{"name":"ابراهيم  قحطان","phoneNumber":"07724932437","photo":null}]},{"groupId":0,"action":"","type":"balance","title":"YOUR PREPAID BALANCE","items":[{"value":1135.25,"actionButton":{"title":"RECHARGE","action":"navigate/recharge"}}]},{"icon":"https://odpapp.asiacell.com/img/icon/remaining_data.png","tag":"data","type":"giftBox","inverted":true,"title":"Remaining Data","items":[{"title":"Your current plan does not include Data","action":{"title":"Get Data add-ons now","action":"switchTab/addOn"}}]},{"icon":"https://odpapp.asiacell.com/img/icon/remaining_call.png","tag":"call","type":"giftBox","inverted":true,"title":"Remaining Call","items":[{"title":"Your current plan does not include Call","action":{"title":"Get Call add-ons now","action":"switchTab/addOn"}}]},{"icon":"https://odpapp.asiacell.com/img/icon/remaining_sms.png","tag":"sms","type":"giftBox","inverted":true,"title":"Remaining SMS","items":[{"title":"Your current plan does not include SMS","action":{"title":"Get SMS add-ons now","action":"switchTab/addOn"}}]}]},"success":true,"message":"Success"}
     }
 
-    public function check_Token($token)
+    public function check_Token($token): bool
     {
         //if its expired or not accepted from the server
 

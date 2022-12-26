@@ -8,11 +8,6 @@ class Enums extends Model
 {
     //
 
-    const PhoneStatus = ['active' => 1, 'disabled' => 2, 'deleted' => 3, 'busy' => 4]; //phones status
-
-    const chargeType = ['cards' => 1, 'transfer' => 2]; //the same for checkout
-
-    const providers = ['asiacell' => 1, 'korek' => 2, 'zain' => 3]; //should become from the modules
 
     const charge_status = ['completed' => 1, 'pending' => 2, 'rejected' => 3, 'timeout' => 4]; //transaction status
 

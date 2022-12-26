@@ -16,9 +16,9 @@ class CreateAuthcores extends Migration
         Schema::create('authcores', function (Blueprint $table) {
             $table->id();
             $table->string('Phone');
-            $table->enum('Charge_Type', \App\Models\Enums::chargeType);
-            $table->enum('Status', \App\Models\Enums::PhoneStatus);
-            $table->enum('Provider', \App\Models\Enums::providers);
+            $table->string('ChargeType');//enum
+            $table->string('Status');//enum
+            $table->string('Provider');//enum
             $table->integer('UsageLimit');
             $table->string('Pid');
             $table->string('DeviceId');

@@ -16,7 +16,7 @@ class CreateSmsServers extends Migration
         Schema::create('sms_servers', function (Blueprint $table) {
             $table->id();
             $table->integer('phoneNum');
-            $table->enum('Provider', \App\Models\Enums::providers)->nullable(); //need for recognize in the controller
+            $table->string('Provider')->nullable(); //need for recognize in the controller //enums
             $table->text('msgContext');
             $table->timestamps();
         });

@@ -2,8 +2,11 @@
 
 namespace App\Jobs;
 
+use App\Enums\Phone\ChargeTransactionStatus;
+use App\Enums\Phone\PhoneStatus;
+use App\Enums\Phone\ChargeStatus;
+
 use App\Models\Authcore;
-use App\Models\Enums;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -42,7 +45,14 @@ class PendingTransactionSolver implements ShouldQueue
     {
         if ($this->PhoneNumber == null){
             //check busy and balance if there change
+            $PhoneNumbers=Authcore::where('Status',PhoneStatus::Busy)->whereRelation('logs','chargeStatus',ChargeTransactionStatus::Pending)->with('logs.loggable')->get();
+//            foreach (){
+//
+//
+//            }
             //if timeout change the phone active and log timeout
+//            return ChargeStatus::Pending;
+
 
         }else{
             //check balance
