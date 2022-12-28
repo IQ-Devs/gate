@@ -24,6 +24,7 @@ class PendingTransactionSolver implements ShouldQueue
 // check busy phones  then get the transaction log  by the relation in the mode and run checks according to the charge type transfer
     private $PhoneNumber;
     private $timeout;
+
     /**
      * Create a new job instance.
      *
@@ -32,7 +33,7 @@ class PendingTransactionSolver implements ShouldQueue
     public function __construct(Authcore $PhoneNumber = null, $timeout = null)
     {
         $this->PhoneNumber = $PhoneNumber;
-        $this->timeout= $timeout;
+        $this->timeout = $timeout;
     }
 
 
@@ -41,38 +42,46 @@ class PendingTransactionSolver implements ShouldQueue
      *
      * @return void
      */
-    public function handle()
+    public function handle(): void
     {
-        if ($this->PhoneNumber == null){
+        if ($this->PhoneNumber == null) {
             //check busy and balance if there change
-            $PhoneNumbers=Authcore::where('Status',PhoneStatus::Busy)->whereRelation('logs','chargeStatus',ChargeTransactionStatus::Pending)->with('logs.loggable')->get();
-//            foreach (){
-//
-//
-//            }
+            $PhoneNumbers = Authcore::where('Status', PhoneStatus::Busy)->whereRelation('logs', 'chargeStatus', ChargeTransactionStatus::Pending)->get();//get all pending transactions
+            $validRows = $PhoneNumbers->map(function ($item) {
+                $item->logs()->where('created_at', '<=', now()->subMinute(5)->toDateTime())->update(['chargeStatus' => ChargeTransactionStatus::Timeout]); //check if the transaction got outdated
+                $item->logs = $item->logs()->where('chargeStatus', ChargeTransactionStatus::Pending)->with('loggable')->first();
+                return $item; // get the still valid transactions
+            });
+            foreach ($validRows as $phoneNumber) {
+//                balance not the same /*/
+                if ( $phoneNumber->getProvider()->Balance() == $phoneNumber->logs->loggable->BalanceBefore) {
+                    
+                }
+
+
+            }
             //if timeout change the phone active and log timeout
 //            return ChargeStatus::Pending;
 
 
-        }else{
+        } else {
             //check balance
             // update balance
             //change phone status
             //send event
             //if timeout and balance not the same then reject
             //if pending and
-            if ($this->timeout !== null){
-                $log = $this->PhoneNumber->logs()->where('chargeStatus',Enums::charge_status['timeout'])->with('loggable')->first();
-            }else{
-                $log = $this->PhoneNumber->logs()->where('chargeStatus',Enums::charge_status['pending'])->with('loggable')->first();
+            if ($this->timeout !== null) {
+                $log = $this->PhoneNumber->logs()->where('chargeStatus', Enums::charge_status['timeout'])->with('loggable')->first();
+            } else {
+                $log = $this->PhoneNumber->logs()->where('chargeStatus', Enums::charge_status['pending'])->with('loggable')->first();
 
             }
 
 
-
         }
         // check all pending top-up requests for transfer by phone status and charge type then check the balance
-        Authcore::where([['Status',Enums::PhoneStatus['busy']],['ChargeType', Enums::chargeType['transfer']]]);
+        Authcore::where([['Status', Enums::PhoneStatus['busy']], ['ChargeType', Enums::chargeType['transfer']]]);
 
     }
 }
