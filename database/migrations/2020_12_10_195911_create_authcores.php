@@ -20,6 +20,7 @@ class CreateAuthcores extends Migration
             $table->string('Status');//enum
             $table->string('Provider');//enum
             $table->integer('UsageLimit');
+            $table->boolean('StopUse');// to stop uses the number to receive anything and assign to the task scheduler to be disabled after finishing pending transactions if there is .
             $table->string('Pid');
             $table->string('DeviceId');
             $table->longText('access_token');
