@@ -20,6 +20,7 @@ class CreatePhoneCardLogs extends Migration
             $table->integer('BalanceBefore');
             $table->timestamps();
         });
+
     }
 
     /**

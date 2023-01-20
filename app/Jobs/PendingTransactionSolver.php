@@ -23,9 +23,8 @@ class PendingTransactionSolver implements ShouldQueue
 
 // TO-Do
 // check busy phones  then get the transaction log  by the relation in the mode and run checks according to the charge type transfer
-    private $PhoneNumber;
+    public $PhoneNumber;
     private $timeout;
-
 
 //    if  phone null and time out null then check all pending, this is probably triggered by the task scheduler
 //    if  phone null and time out exits  then check all timout , this is probably triggered by the task scheduler
@@ -36,10 +35,11 @@ class PendingTransactionSolver implements ShouldQueue
      *
      * @return void
      */
-    public function __construct(Authcore $PhoneNumber = null, $timeout = null)
+    public function __construct(Authcore $PhoneNumber = null, bool $timeout = false)
     {
         logger($PhoneNumber);// check if I pass a properties not in the model is it going to stay or fetch again new one
         $this->PhoneNumber = $PhoneNumber;
+
         $this->timeout = $timeout;
     }
 
@@ -51,8 +51,9 @@ class PendingTransactionSolver implements ShouldQueue
      */
     public function handle(): void
     {
+
         if ($this->PhoneNumber == null) {
-            if ($this->timeout == null) {
+            if (!$this->timeout) {
                 //check busy and balance if there change
                 $this->PhoneNumber = Authcore::where('Status', PhoneStatus::Busy)->whereRelation('logs', 'chargeStatus', ChargeTransactionStatus::Pending)->get();//get all pending transactions
                 $this->PhoneNumber = $this->PhoneNumber->map(function ($item) {
@@ -60,18 +61,20 @@ class PendingTransactionSolver implements ShouldQueue
                     $item->logs = $item->logs()->where('chargeStatus', ChargeTransactionStatus::Pending)->with('loggable')->first();
                     return $item; // get the still valid transactions
                 });
-            }elseif ($this->timeout !== null){
+            }elseif ($this->timeout){
                 $this->PhoneNumber = Authcore::where('Status', PhoneStatus::Busy)->whereRelation('logs', 'chargeStatus', ChargeTransactionStatus::Timeout)->with('logs.loggable')->get();//get all pending transactions
 
 
             }
             foreach ($this->PhoneNumber as $phoneNumber) {
 //                balance not the same
-                $phoneNumber->balance = $phoneNumber->getProvider()->Balance();
+//                $phoneNumber->balance = $phoneNumber->getProvider()->Balance();
+                $phoneNumber->balance = 12; //for test purpose
+
                 if ($phoneNumber->balance !== $phoneNumber->logs->loggable->BalanceBefore) {
 
-                    self::dispatch($phoneNumber);
-//                    self::dispatchSync($phoneNumber);
+//                    self::dispatch($phoneNumber);
+                    self::dispatchSync($phoneNumber);
 
 
                 }
@@ -84,25 +87,60 @@ class PendingTransactionSolver implements ShouldQueue
 //        not finished yet
         elseif ($this->PhoneNumber) {
 
-            //check balance
-            // update balance
-            //change phone status
-            //send event
-            //if timeout and balance not the same then reject
-            //if pending and balance not the same then release
-            if ($this->timeout !== null) {
-                $log = $this->PhoneNumber->logs()->where('chargeStatus', Enums::charge_status['timeout'])->with('loggable')->first();
 
-            } else {
+//            //change phone status
+//            //send event
+            if ($this->timeout) {
+                $this->PhoneNumber = $this->PhoneNumber->with(['logs' =>fn($query) =>$query->where('chargeStatus', ChargeTransactionStatus::Timeout)])->first();
+            } elseif(!$this->timeout) {
+                $this->PhoneNumber = $this->PhoneNumber->with(['logs' =>fn($query) =>$query->where('chargeStatus', ChargeTransactionStatus::Pending)])->first();
+            }
 
-                $log = $this->PhoneNumber->logs()->where('chargeStatus', Enums::charge_status['pending'])->with('loggable')->first();
+//            //check balance
+            if($this->PhoneNumber->Balance() !== $this->PhoneNumber->logs->first()->loggable->BalanceBefore) {
+                // update balance
+                echo 'not queal going to update:'.$this->PhoneNumber->logs->first()->user->profile->balance ." \n ";
+                $profile =$this->PhoneNumber->logs->first()->user->profile;
+                $newBalance=$profile->update(['balance'=>$profile->balance += ($this->PhoneNumber->Balance() - $this->PhoneNumber->logs->first()->loggable->BalanceBefore)]) ;//need to check in case minus or exploit
+                echo 'after update:'.$this->PhoneNumber->logs->first()->user->profile->balance ." \n ";
+                echo 'amount update:'.$this->PhoneNumber->Balance() - $this->PhoneNumber->logs->first()->loggable->BalanceBefore ." \n ";
 
 
             }
 
+            //if pending(not timeout) and balance  the same then release back to the queue
+            elseif($this->log->ChargeStatus === ChargeTransactionStatus::Pending){
+                    //stop
+                return;
 
 
+                }
 
+//complete from here next time
+//                 }else{
+//                //if timeout and balance  the same then reject
+//                if ($this->log->ChargeStatus === ChargeTransactionStatus::Timeout){
+//                    //change charge status to reject
+//
+//
+//
+//
+//                }
+//
+//
+//
+//
+//
+//
+//            }
+//
+//
+//
+//
+//            //notifications with charge status
+//            //broadcast
+//
+//
         }
 
 

@@ -12,13 +12,16 @@ use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Database\Eloquent\Model;
 use InvalidArgumentException;
 
-
-class Authcore extends Model
+class Authcore  extends Model implements CellProviderInterface
 {
+
     use Asiacell;
+
+
     protected $casts=[
         'ChargeType'=>ChargeType::class,
         'Status'=>PhoneStatus::class,
+
         'Provider'=>Provider::class
     ];
     //return register this-> access_token/ refresh_token
@@ -38,10 +41,14 @@ class Authcore extends Model
         return $this->check_Token($this->access_token);
     }
 
+
+//    https://laravel.com/docs/9.x/eloquent-relationships#advanced-has-one-of-many-relationships
+//    planning to use this
     public function logs(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(PhoneLog::class);
     }
+
 
     /**
      * @throws BindingResolutionException
@@ -52,5 +59,18 @@ class Authcore extends Model
             Provider::Asiacell => app()->makeWith(AsiacellProvider::class,['authcore'=>$this]),//going to use enum here
             default => throw new InvalidArgumentException("[{$this->Provider}] is an invalid provider"),
         };
+    }
+
+
+    /**
+     * @throws BindingResolutionException
+     */
+    public function Balance()
+
+    {
+
+//        return $this->getProvider()->Balance();
+        return 11;
+
     }
 }
