@@ -57,13 +57,15 @@ class PendingTransactionSolver implements ShouldQueue
                 //check busy and balance if there change
                 $this->PhoneNumber = Authcore::where('Status', PhoneStatus::Busy)->whereRelation('logs', 'chargeStatus', ChargeTransactionStatus::Pending)->get();//get all pending transactions
                 $this->PhoneNumber = $this->PhoneNumber->map(function ($item) {
+
                     $item->logs()->where('created_at', '<=', now()->subMinute(5)->toDateTime())->update(['chargeStatus' => ChargeTransactionStatus::Timeout]); //check and update if the transaction got timeout
+                    $item->update(['Status' => PhoneStatus::Active]);//not tested yet
                     $item->logs = $item->logs()->where('chargeStatus', ChargeTransactionStatus::Pending)->with('loggable')->first();
                     return $item; // get the still valid transactions
                 });
-            }elseif ($this->timeout){
-                $this->PhoneNumber = Authcore::where('Status', PhoneStatus::Busy)->whereRelation('logs', 'chargeStatus', ChargeTransactionStatus::Timeout)->with('logs.loggable')->get();//get all pending transactions
-
+            } elseif ($this->timeout) {
+                $this->PhoneNumber = Authcore::where('Status', PhoneStatus::Active)->whereRelation('logs', 'chargeStatus', ChargeTransactionStatus::Timeout)->with('logs.loggable')->get();//get all Timeout transactions
+//what if changed get to first ? will foreach works ?
 
             }
             foreach ($this->PhoneNumber as $phoneNumber) {
@@ -83,57 +85,51 @@ class PendingTransactionSolver implements ShouldQueue
             }
 
 
-        }
-//        not finished yet
+        } //        not finished yet
         elseif ($this->PhoneNumber) {
 
 
 //            //change phone status
 //            //send event
             if ($this->timeout) {
-                $this->PhoneNumber = $this->PhoneNumber->with(['logs' =>fn($query) =>$query->where('chargeStatus', ChargeTransactionStatus::Timeout)])->first();
-            } elseif(!$this->timeout) {
-                $this->PhoneNumber = $this->PhoneNumber->with(['logs' =>fn($query) =>$query->where('chargeStatus', ChargeTransactionStatus::Pending)])->first();
+                $this->PhoneNumber = $this->PhoneNumber->with(['logs' => fn($query) => $query->where('chargeStatus', ChargeTransactionStatus::Timeout)])->first();
+            } elseif (!$this->timeout) {
+                $this->PhoneNumber = $this->PhoneNumber->with(['logs' => fn($query) => $query->where('chargeStatus', ChargeTransactionStatus::Pending)])->first();
             }
-
 //            //check balance
-            if($this->PhoneNumber->Balance() !== $this->PhoneNumber->logs->first()->loggable->BalanceBefore) {
+            if ($this->PhoneNumber->Balance() !== $this->PhoneNumber->logs->first()->loggable->BalanceBefore) {
                 // update balance
-                echo 'not queal going to update:'.$this->PhoneNumber->logs->first()->user->profile->balance ." \n ";
-                $profile =$this->PhoneNumber->logs->first()->user->profile;
-                $newBalance=$profile->update(['balance'=>$profile->balance += ($this->PhoneNumber->Balance() - $this->PhoneNumber->logs->first()->loggable->BalanceBefore)]) ;//need to check in case minus or exploit
-                echo 'after update:'.$this->PhoneNumber->logs->first()->user->profile->balance ." \n ";
-                echo 'amount update:'.$this->PhoneNumber->Balance() - $this->PhoneNumber->logs->first()->loggable->BalanceBefore ." \n ";
+                echo 'not equal going to update:' . $this->PhoneNumber->logs->first()->user->profile->balance . " \n ";
+                $profile = $this->PhoneNumber->logs->first()->user->profile;
+                $newBalance = $profile->update(['balance' => $profile->balance += ($this->PhoneNumber->Balance() - $this->PhoneNumber->logs->first()->loggable->BalanceBefore)]);//need to check in case minus or exploit
+                echo 'after update:' . $this->PhoneNumber->logs->first()->user->profile->balance . " \n ";
+                echo 'amount update:' . $this->PhoneNumber->Balance() - $this->PhoneNumber->logs->first()->loggable->BalanceBefore . " \n ";
+                //change to completed
+                $this->PhoneNumber->logs->first()->update(['chargeStatus' => ChargeTransactionStatus::Completed]);
 
 
-            }
+            } else {//balance the same
 
-            //if pending(not timeout) and balance  the same then release back to the queue
-            elseif($this->log->ChargeStatus === ChargeTransactionStatus::Pending){
+                //if pending(not timeout) and balance  the same then release back to the queue
+                if ($this->PhoneNumber->logs->first()->chargeStatus === ChargeTransactionStatus::Pending) {
                     //stop
-                return;
+                    return;
+//                idea to use release instead of return , and make the code checking from the begging if it's assigned by adding flag to the phone in queue and change it in the end of the process
+
+                } //complete from here next time
+
+                elseif ($this->PhoneNumber->logs->first()->chargeStatus === ChargeTransactionStatus::Timeout) {
+                    //if timeout and balance  the same then reject
+                    //change charge status to reject
 
 
                 }
 
-//complete from here next time
-//                 }else{
-//                //if timeout and balance  the same then reject
-//                if ($this->log->ChargeStatus === ChargeTransactionStatus::Timeout){
-//                    //change charge status to reject
-//
-//
-//
-//
-//                }
-//
-//
-//
-//
-//
-//
-//            }
-//
+            }
+
+
+        }
+//              and phone to active back
 //
 //
 //
@@ -141,8 +137,7 @@ class PendingTransactionSolver implements ShouldQueue
 //            //broadcast
 //
 //
-        }
-
-
     }
+
+
 }

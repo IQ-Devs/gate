@@ -21,6 +21,8 @@ class TopUpController extends Controller
 
         //return active number
         $number = Authcore::where('status', Enums::PhoneStatus['active'])->first();
+//        check for timeout transaction
+
         //open session for the user
         $this->dispatch(PendingTransactionSolver::class); // five minute time out and create the log
         //log the transaction
