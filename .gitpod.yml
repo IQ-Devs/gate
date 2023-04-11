@@ -11,7 +11,7 @@ tasks:
     init: |
       {
       export TASK="init";
-      bash .gitpod.sh 
+      bash .gitpod.sh
       }
 
     command: |
@@ -33,11 +33,12 @@ jetbrains:
       version: stable
     plugins:
       - ru.adelf.idea.dotenv
-      - de.docs_as_co.intellij.plugin.diagramsnet
+#       - de.docs_as_co.intellij.plugin.diagramsnet
       - com.github.googee.laravelgenerator
-      - com.laravel_idea.plugin
+#       - com.laravel_idea.plugin
       - com.github.lppedd.idea-conventional-commit
       - de.docs_as_co.intellij.plugin.diagramsnet
+      - de.php_perfect.intellij.ddev
 
 
 

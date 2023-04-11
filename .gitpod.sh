@@ -2,8 +2,7 @@
 #if before
 if [ "$TASK" == "before" ]; then
 if [ "$GITPOD_IDE_ALIAS" == "phpstorm" ]; then echo -e 'alias npm="ddev exec npm " \n alias php="ddev exec php"  ' >> ~/.bashrc  ;fi
-apt-get update
-apt-get install -y ddev
+sudo su -c "apt-get update && apt-get install -y ddev"
 ddev start -y
 export DDEV_NONINTERACTIVE=true
 ddev exec "cat .env.example | sed  -E 's/DB_(HOST|DATABASE|USERNAME|PASSWORD)=(.*)/DB_\1=db/g' > .env"
