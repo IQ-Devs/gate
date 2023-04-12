@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\Phone\PhoneStatus;
 use App\Jobs\PendingTransactionSolver;
 use App\Models\Authcore;
 use App\Models\Bill;
@@ -19,14 +20,16 @@ class TopUpController extends Controller
     public function transfer()
     {
 
-        //return active number
-        $number = Authcore::where('status', Enums::PhoneStatus['active'])->first();
-//        check for timeout transaction
+        //return active number in the end of the request
+        $PhoneNumber = Authcore::where('status', PhoneStatus::Active)->first();
+//
 
-        //open session for the user
-        $this->dispatch(PendingTransactionSolver::class); // five minute time out and create the log
+        //open session for the user  ,check for timeout transaction
+        $this->dispatch(new  PendingTransactionSolver($PhoneNumber));
+
+        //by broadcaster,event inside the job
         //log the transaction
-        PhoneTransferLog::class;
+        PhoneTransferLog::create();
         //bill and send the money to the user
         Bill::create;
 

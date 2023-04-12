@@ -19,12 +19,12 @@ class PendingTransactionSolver implements ShouldQueue
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
 //I'm using same class for the tasks scheduler and queue(task schedule for pending only don't do any timeout checking)
-// be sure of the translation type transfer
+// be sure of the transaction type transfer
 
 // TO-Do
 // check busy phones  then get the transaction log  by the relation in the mode and run checks according to the charge type transfer
-    public $PhoneNumber;
-    private $timeout;
+    public ?Authcore $PhoneNumber;
+    private bool $timeout;
 
 //    if  phone null and time out null then check all pending, this is probably triggered by the task scheduler
 //    if  phone null and time out exits  then check all timout , this is probably triggered by the task scheduler
